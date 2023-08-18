@@ -52,7 +52,8 @@
     "husky": "^8.0.3",
     "postcss-import": "^15.1.0",
     "prettier": "^2.8.8",
-    "prettier-plugin-tailwindcss": "^0.3.0"
+    "prettier-plugin-tailwindcss": "^0.3.0",
+    "tailwind-scrollbar": "^3.0.5"
   },
   "config": {
     "commitizen": {

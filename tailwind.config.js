@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { fontFamily } = require('tailwindcss/defaultTheme')
 const { withTV } = require('tailwind-variants/transformer')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = withTV({
   darkMode: ['class'],
-  content: ['app/**/*.{ts,tsx}', 'components/**/*.{ts,tsx}'],
+  content: ['./**/*.{ts,tsx}'],
   theme: {
     container: {
       center: true,
@@ -13,6 +12,9 @@ module.exports = withTV({
       screens: {
         '2xl': '1400px'
       }
+    },
+    fontFamily: {
+      montserrat: 'var(--font-montserrat)'
     },
     extend: {
       colors: {
@@ -55,9 +57,7 @@ module.exports = withTV({
         md: `calc(var(--radius) - 2px)`,
         sm: 'calc(var(--radius) - 4px)'
       },
-      fontFamily: {
-        sans: ['var(--font-sans)', ...fontFamily.sans]
-      },
+
       keyframes: {
         'accordion-down': {
           from: { height: 0 },
@@ -74,5 +74,8 @@ module.exports = withTV({
       }
     }
   },
-  plugins: [require('tailwindcss-animate')]
+  plugins: [
+    require('tailwindcss-animate'),
+    require('tailwind-scrollbar')({ nocompatible: true })
+  ]
 })
