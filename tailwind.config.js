@@ -14,7 +14,7 @@ module.exports = withTV({
       }
     },
     fontFamily: {
-      montserrat: 'var(--font-montserrat)'
+      roboto: 'var(--font-roboto)'
     },
     extend: {
       colors: {
