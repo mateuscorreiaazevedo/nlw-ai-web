@@ -2,7 +2,7 @@ class UnauthorizeError extends Error {
   constructor(errorMessage = '', errorType?: string) {
     super(errorMessage)
     this.name = 'UnauthorizeError'
-    this.stack = errorType
+    this.stack = errorType as string
   }
 }
 
@@ -10,7 +10,7 @@ class UnprocessableEntityError extends Error {
   constructor(errorMessage = '', errorType?: string) {
     super(errorMessage)
     this.name = 'UnprocessableEntityError'
-    this.stack = errorType
+    this.stack = errorType as string
   }
 }
 
@@ -18,7 +18,7 @@ class NotFoundError extends Error {
   constructor(errorMessage = '', errorType?: string) {
     super(errorMessage)
     this.name = 'NotFoundError'
-    this.stack = errorType
+    this.stack = errorType as string
   }
 }
 
@@ -26,7 +26,7 @@ class BadRequestError extends Error {
   constructor(errorMessage = '', errorType?: string) {
     super(errorMessage)
     this.name = 'BadRequestError'
-    this.stack = errorType
+    this.stack = errorType as string
   }
 }
 
@@ -34,7 +34,7 @@ class ForbiddenError extends Error {
   constructor(errorMessage = '', errorType?: string) {
     super(errorMessage)
     this.name = 'ForbiddenError'
-    this.stack = errorType
+    this.stack = errorType as string
   }
 }
 class ServerError extends Error {

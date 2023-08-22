@@ -1,34 +1,31 @@
 'use client'
 
+import { authSchemas, authService, tokenHelper } from '..'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { authSchemas, authService } from '..'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import Cookies from 'js-cookie'
 import React from 'react'
-import dayjs from 'dayjs'
 
 const FormLogin = () => {
   const router = useRouter()
-  const { handleSubmit, register, formState } = useForm<InputSignInProps>({
+  const { handleSubmit, register, formState, setError } = useForm<InputSignInProps>({
     resolver: zodResolver(authSchemas.signIn)
   })
   const [loading, setLoading] = React.useState(false)
-  const [errorMessage, setErrorMessage] = React.useState('')
 
   async function handleSignIn(data: InputSignInProps) {
     setLoading(true)
 
     try {
       const token = await authService.signIn(data)
-      Cookies.set('token', token!, {
-        // Expires in 30 days
-        expires: dayjs(new Date()).add(30, 'day').toDate()
-      })
+      tokenHelper.set(token as string)
       router.push('/')
     } catch (error) {
-      if ((error as ResponseErrors).type === 'credentials') {
-        setErrorMessage((error as ResponseErrors).error as string)
+      if ((error as Error).stack === 'invalidCredentials') {
+        setError('password', {
+          type: 'manual',
+          message: (error as Error).message
+        })
       }
     } finally {
       setLoading(false)
@@ -40,20 +37,21 @@ const FormLogin = () => {
       className="flex w-full flex-col gap-1"
       onSubmit={handleSubmit(handleSignIn)}
     >
-      <span>{errorMessage}</span>
       <span>{formState.errors.emailOrUsername?.message}</span>
       <input
         {...register('emailOrUsername')}
         type="text"
+        data-error={formState.errors.emailOrUsername}
         placeholder="Email ou nome de usuário"
-        className="h-8 px-2"
+        className="h-8 px-2 data-[error]:bg-red-200"
       />
       <span>{formState.errors.password?.message}</span>
       <input
         {...register('password')}
+        data-error={formState.errors.password}
         type="text"
         placeholder="Senha"
-        className="h-8 px-2"
+        className="h-8 border px-2 outline-none data-[error]:border-red-500"
       />
       <button
         type="submit"

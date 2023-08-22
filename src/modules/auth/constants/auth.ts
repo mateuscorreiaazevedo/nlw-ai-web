@@ -1,3 +1,4 @@
 export default {
-  signICredentials: '/signin'
+  signInCredentials: '/signin',
+  signUpCredentials: '/signup'
 }
