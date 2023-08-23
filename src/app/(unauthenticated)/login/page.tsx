@@ -1,6 +1,6 @@
-import { FaGoogle } from 'react-icons/fa'
+import { FaGithub, FaGoogle } from 'react-icons/fa'
 import { FormSignIn } from '@/modules/auth'
-import { LinkButton } from '@/modules/core'
+import { Link } from '@/modules/core'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import React from 'react'
@@ -18,10 +18,24 @@ export default function Login() {
         <h1 className="self-center text-3xl font-bold">Login</h1>
         <FormSignIn />
         <div className="w-full space-y-2">
-          <LinkButton variant="button" size="lg" href="/">
-            <FaGoogle />
+          <Link
+            iconLeft={FaGoogle}
+            variant="button"
+            iconSize={30}
+            size="large"
+            href="/"
+          >
             Entrar com Google
-          </LinkButton>
+          </Link>
+          <Link
+            iconLeft={FaGithub}
+            variant="button"
+            iconSize={30}
+            size="large"
+            href="/"
+          >
+            Entrar com o Github
+          </Link>
         </div>
       </div>
     </div>
