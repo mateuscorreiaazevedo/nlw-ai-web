@@ -1,10 +1,10 @@
-import axios, { AxiosHeaders, AxiosInstance, AxiosResponse } from 'axios'
+import axios, { AxiosInstance, AxiosResponse } from 'axios'
 import { env } from '@/main/config'
 
 type HttpRequest = {
   url: string
   data?: any
-  headers?: AxiosHeaders
+  headers?: any
   params?: any
   method?: 'get' | 'post' | 'put' | 'delete'
 }

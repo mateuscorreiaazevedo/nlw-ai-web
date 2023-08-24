@@ -19,6 +19,7 @@ const FormLogin = () => {
     try {
       const token = await authService.signIn(data)
       tokenHelper.set(token as string)
+      router.refresh()
       router.push('/')
     } catch (error) {
       if ((error as Error).stack === 'invalidCredentials') {

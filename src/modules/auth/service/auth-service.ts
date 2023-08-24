@@ -2,22 +2,39 @@ import { Service, errorsHandlers } from '@/modules/core'
 import { authConstants as c } from '..'
 
 class AuthService extends Service {
-  async signUp(data: InputSignUpProps) {
+  async users(token: string): Promise<any[]> {
+    const response = await this.request<{ data: any[] } & ResponseErrors>({
+      url: '/users',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    if (response.statusCode !== 200)
+      errorsHandlers(
+        response.statusCode,
+        response.body?.error as string,
+        response.body?.type
+      )
+
+    return response.body!.data
+  }
+
+  async signUp(data: InputSignUpProps): Promise<string> {
     const response = await this.request<{ message: string } & ResponseErrors>({
       url: c.signUpCredentials,
       method: 'post',
       data
     })
 
-    if (response.statusCode === 200) {
-      return response.body?.message
-    }
+    if (response.statusCode !== 200)
+      errorsHandlers(
+        response.statusCode,
+        response.body?.error as string,
+        response.body?.type
+      )
 
-    errorsHandlers(
-      response.statusCode,
-      response.body?.error as string,
-      response.body?.type
-    )
+    return response.body!.message
   }
 
   async signIn(data: InputSignInProps) {
@@ -27,14 +44,14 @@ class AuthService extends Service {
       data
     })
 
-    if (response.statusCode === 200) {
-      return response.body?.token
-    }
-    errorsHandlers(
-      response.statusCode,
-      response.body?.error as string,
-      response.body?.type
-    )
+    if (response.statusCode !== 200)
+      errorsHandlers(
+        response.statusCode,
+        response.body?.error as string,
+        response.body?.type
+      )
+
+    return response.body?.token
   }
 }
 
