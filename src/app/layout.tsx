@@ -1,10 +1,11 @@
-import { Roboto_Flex as Roboto } from 'next/font/google'
+import { Montserrat } from 'next/font/google'
 import '../assets/styles/globals.css'
 import { ReactNode } from 'react'
+import { ThemeProvider } from '@/modules/core'
 
-const roboto = Roboto({
+const montserrat = Montserrat({
   subsets: ['latin'],
-  variable: '--font-roboto',
+  variable: '--font-montserrat',
   fallback: ['sans serif']
 })
 
@@ -16,8 +17,10 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-br">
-      <body className={`${roboto.variable} min-h-screen w-full font-roboto`}>
-        {children}
+      <body
+        className={`${montserrat.variable} min-h-screen w-full bg-neutral-50 font-montserrat text-zinc-950 dark:bg-zinc-900 dark:text-white`}
+      >
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   )
