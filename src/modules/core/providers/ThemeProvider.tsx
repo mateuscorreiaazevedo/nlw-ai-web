@@ -9,7 +9,7 @@ type Props = {
 
 export const ThemeProvider: React.FC<Props> = ({ children }) => {
   return (
-    <NextThemeProvider attribute="class" defaultTheme="light">
+    <NextThemeProvider attribute="class" defaultTheme="dark">
       {children}
     </NextThemeProvider>
   )
